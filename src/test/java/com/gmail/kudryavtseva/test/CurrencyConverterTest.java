@@ -15,11 +15,11 @@ public class CurrencyConverterTest extends CommonConditions {
     @DataProvider(name = "currency-converter-test-data-provider")
     public Object[][] getCurrencyConverterTestData() {
         return new Object[][]{
-                {"100", "EUR", "GBP", 84.99, 1e-2},
-                {"1", "EUR", "GBP", 0.8499, 1e-3},
+                {"100", "EUR", "GBP", 84.99, 0.1},
+                {"1", "EUR", "GBP", 0.8499, 1e-2},
                 {"1.0", "EUR", "EUR", 1.0, 0.0},
                 {"0.01", "USD", "EUR", 0.009, 1e-3},
-                {"999999.99", "USD", "EUR", 931573.60, 50.0},
+                {"999999.99", "USD", "EUR", 931573.60, 500.0},
         };
     }
 
