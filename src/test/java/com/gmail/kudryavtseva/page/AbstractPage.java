@@ -2,6 +2,9 @@ package com.gmail.kudryavtseva.page;
 
 import org.openqa.selenium.WebDriver;
 
+/**
+ * An abstract class for a page.
+ */
 public abstract class AbstractPage {
 
     protected WebDriver driver;

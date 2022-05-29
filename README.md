@@ -1,12 +1,19 @@
-# currency-converter
+# Currency Converter
 
-For running test suite use the following command:
-mvn -Dbrowser=chrome -Dsurefire.suiteXmlFiles=src\test\resources\testing-acceptance.xml clean test
+## Running
+To run test suite use the following command (from the project root directory):
+```
+$ mvn -Dbrowser=chrome -Dsurefire.suiteXmlFiles=src\test\resources\testing-acceptance.xml clean test
+```
 
-Two options for param -Dbrowser available: chrome and firefox
+Two options for param -Dbrowser available:
+- `chrome`
+- `firefox`
 
-After run is completed generate allure report:
-allure generate
+## Reporting
+After a run an allure report can be generated (from the project root directory):
+```
+$ allure generate
+```
 
-Find generated report in:
-/allure-report/index.html
+The generated report is located at `${PROJECT_ROOT_DIR}/allure-report/index.html`

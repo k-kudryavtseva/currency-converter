@@ -15,19 +15,45 @@ public class CurrencyConverterTest extends CommonConditions {
     @DataProvider(name = "currency-converter-test-data-provider")
     public Object[][] getCurrencyConverterTestData() {
         return new Object[][]{
-                {"100", "EUR", "GBP", 84.99, 0.1},
-                {"1", "EUR", "GBP", 0.8499, 1e-2},
+                // basic test cases
+                {"100", "EUR", "GBP", 84.99, 1.0},
+                {"1", "EUR", "GBP", 0.8499, 0.1},
+                // test that decimal numbers are processed as expected,
+                // delta should be zero here because we convert the same currency,
+                // so we expect exactly 1 as a result
                 {"1.0", "EUR", "EUR", 1.0, 0.0},
+                // test that the smallest possible amount works as expected
                 {"0.01", "USD", "EUR", 0.009, 1e-3},
-                {"999999.99", "USD", "EUR", 931573.60, 500.0},
+                // test a large number
+                // which produces numbers containing commas
+                {"999999.99", "USD", "EUR", 931573.60, 1000.0},
         };
     }
 
+    /**
+     * This test is responsible to test that currency conversion produces a reasonable result.
+     * Note: we don't test exact conversion rates because they tend to change
+     * so we only verify that the obtained values are somewhat reasonable
+     * that's why we use pretty large deltas for comparison.
+     *
+     * @param amount the amount of money to be converted
+     * @param fromCurrency a currency to convert money from
+     * @param toCurrency a currency to convert money to
+     * @param expectedAmount an expected conversion result (rough)
+     * @param acceptedDelta a delta to indicate an interval where we accept the converted amount
+     *                      (we use pretty wide range as we don't test exact rates here)
+     */
     @Epic("Acceptance tests")
     @Feature("Currency conversion tests")
     @Test (dataProvider = "currency-converter-test-data-provider")
-    @Description("Iterating over 5 sets of sample data")
-    public void convertCurrency(String amount, String fromCurrency, String toCurrency, Double expectedAmount, Double acceptedDelta) {
+    @Description("Iterating over sets of sample data")
+    public void convertCurrency(
+            String amount,
+            String fromCurrency,
+            String toCurrency,
+            Double expectedAmount,
+            Double acceptedDelta
+    ) {
 
         Double convertedAmount = new MainPage(driver)
                 .openPage()

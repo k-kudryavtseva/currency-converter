@@ -5,6 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+
+/**
+ * This class contains methods and properties to be re-used by multiple tests.
+ */
 public class CommonConditions {
 
     protected WebDriver driver;

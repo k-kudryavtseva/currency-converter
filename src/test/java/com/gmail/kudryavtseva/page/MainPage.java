@@ -12,27 +12,27 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * This class is responsible for loading the app's main page, inputting data and triggering the converter.
+ */
 public class MainPage extends AbstractPage {
+
+    private final int SLEEP_TIME = 2000;
 
     static Logger logger = LogManager.getRootLogger();
 
     private final String BASE_URL = "https://www.xe.com/";
 
+    // a popup with cookies acceptance
     private final By acceptCookiesPopupLocator = By.cssSelector("[class*=\"ConsentBanner___StyledLargeContainer\"]");
-
+    // a button to accept cookies
     private final By acceptCookiesButtonLocator = By.cssSelector("[class*=\"ConsentBanner\"] [class=\"button__BaseButton-sc-1qpsalo-0 ctapkr\"]");
-
+    // an input field for a number to be converted
     private final By amountInputFieldLocator = By.id("amount");
-
+    // an input field for a currency to convert from
     private final By fromCurrencyFieldLocator = By.id("midmarketFromCurrency");
-
-    @FindBy(id = "midmarketFromCurrency")
-    private WebElement fromCurrencyField;
-
+    // an input field for a currency to convert to
     private final By toCurrencyFieldLocator = By.id("midmarketToCurrency");
-
-    @FindBy(id = "midmarketToCurrency")
-    private WebElement toCurrencyField;
 
     @FindBy(css = "[type=\"submit\"]")
     private WebElement convertButton;
@@ -76,19 +76,20 @@ public class MainPage extends AbstractPage {
 
     @Step("Choose from currency step")
     public MainPage chooseFromCurrency(String fromCurrency) {
-        fromCurrencyField = driver.findElement(fromCurrencyFieldLocator);
+        WebElement fromCurrencyField = driver.findElement(fromCurrencyFieldLocator);
         fromCurrencyField.click();
         fromCurrencyField.sendKeys(fromCurrency, Keys.RETURN);
         logger.info("From currency: " + fromCurrency);
 
-        SleepUtils.sleep(2000);
+        // this sleep workaround is required because explicit waits for elements tend to fail sometimes
+        SleepUtils.sleep(SLEEP_TIME);
 
         return this;
     }
 
     @Step("Choose to currency step")
     public MainPage chooseToCurrency(String toCurrency) {
-        toCurrencyField = driver.findElement(toCurrencyFieldLocator);
+        WebElement toCurrencyField = driver.findElement(toCurrencyFieldLocator);
         toCurrencyField.click();
         toCurrencyField.sendKeys(toCurrency, Keys.RETURN);
         logger.info("To currency: " + toCurrency);
@@ -96,7 +97,8 @@ public class MainPage extends AbstractPage {
         new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
                 .until(ExpectedConditions.elementToBeClickable(convertButton));
 
-        SleepUtils.sleep(2000);
+        // this sleep workaround is required because explicit waits for elements tend to fail sometimes
+        SleepUtils.sleep(SLEEP_TIME);
 
         return this;
     }
@@ -105,7 +107,9 @@ public class MainPage extends AbstractPage {
     public CurrencyConverterPage clickConvertButton() {
         convertButton.click();
         logger.info("Convert button was clicked");
-        SleepUtils.sleep(2000);
+
+        // this sleep workaround is required because explicit waits for elements tend to fail sometimes
+        SleepUtils.sleep(SLEEP_TIME);
 
         return new CurrencyConverterPage(driver);
     }
