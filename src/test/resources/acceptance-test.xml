@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Acceptance" verbose="1">
+    <test name="CurrencyConverter">
+        <classes>
+            <class name="com.gmail.kudryavtseva.test.CurrencyConverterTest"/>
+        </classes>
+    </test>
+</suite>
