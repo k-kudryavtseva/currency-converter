@@ -10,3 +10,8 @@ target/
 # Idea
 .idea/
 *.iml
+
+# Allure
+allure-results/
+
+**/.DS_Store
